@@ -1,0 +1,5 @@
+---
+- hosts: gitlab
+  become: true
+  roles:
+    - gitlab

@@ -26,6 +26,7 @@ Las máquinas del cluster se han definido a nivel de red y credenciales de la si
 |sonarqube.ciservice.int|192.168.60.102|vagrant:vagrant|
 |nexus.ciservice.int|192.168.60.103|vagrant:vagrant|
 |slave.ciservice.int|192.168.60.104|vagrant:vagrant|
+|controller.ciservice.int|192.168.60.105|vagrant:vagrant|
 
 Al emplearse el plugin de vagrant-hostmanager se puede emplear desde la máquina host y desde los nodos del cluster tanto el hostname como la IP de la máquina virtual para acceder a cualquier nodo.
 
@@ -45,7 +46,6 @@ Al emplearse el plugin de vagrant-hostmanager se puede emplear desde la máquina
 
  - Virtualbox : Como herramienta de virtualización para correr las máquinas del cluster
  - Vagrant : Como herramienta de definición declarativa de la infraestructura a instanciar
- - Ansible : Como herramienta de definición declarativa de los servicios a configurar en el cluster
 
 ## Iniciar CI-Service-Ansible
 
