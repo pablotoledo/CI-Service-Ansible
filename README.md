@@ -18,13 +18,15 @@ En CI-Service-Ansible se diseña siguiendo estos principios:
 
 ## Listado de máquinas y credenciales
 Las máquinas del cluster se han definido a nivel de red y credenciales de la siguiente forma:
-|Hostname|IP|Usuario:Clave| 
+
+|Hostname|IP|Usuario:Clave|
 |--|--|--|
 |jenkins.ciservice.int|192.168.60.100|vagrant:vagrant|
 |gitlab.ciservice.int|192.168.60.101|vagrant:vagrant|
 |sonarqube.ciservice.int|192.168.60.102|vagrant:vagrant|
 |nexus.ciservice.int|192.168.60.103|vagrant:vagrant|
 |slave.ciservice.int|192.168.60.104|vagrant:vagrant|
+
 Al emplearse el plugin de vagrant-hostmanager se puede emplear desde la máquina host y desde los nodos del cluster tanto el hostname como la IP de la máquina virtual para acceder a cualquier nodo.
 
 ----------
