@@ -5,6 +5,8 @@
 #
 # Getting Started:
 # 1. vagrant plugin install vagrant-hostmanager
+#       If you are running this Vagrantfile behind a corporate proxy: 
+#           vagrant plugin install vagrant-proxyconf
 # 2. vagrant up
 # 3. vagrant ssh
 #
