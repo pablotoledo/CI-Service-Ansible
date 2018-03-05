@@ -1,0 +1,16 @@
+---
+- name: Create required directories.
+  file:
+    group: "{{ jenkins_user_group }}"
+    owner: "{{ jenkins_user_name }}"
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ jenkins_user_home }}/plugins"
+
+- name: Template jenkins service config.
+  template:
+    dest: "{{ jenkins_template_config_dest }}"
+    src: "{{ jenkins_template_config_src }}"
+  when: ansible_os_family == 'RedHat'
+  notify: Restart jenkins

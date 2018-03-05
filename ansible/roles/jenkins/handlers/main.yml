@@ -1,2 +1,7 @@
 ---
 # handlers file for control
+- name: Restart Jenkins
+  become: yes
+  service:
+    name: jenkins
+    state: restarted
