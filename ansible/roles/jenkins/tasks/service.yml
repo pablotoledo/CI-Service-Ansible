@@ -4,4 +4,4 @@
     enabled: yes
     name: jenkins
   notify:
-    - Restart jenkins
+    - Restart Jenkins

@@ -13,4 +13,4 @@
     dest: "{{ jenkins_template_config_dest }}"
     src: "{{ jenkins_template_config_src }}"
   when: ansible_os_family == 'RedHat'
-  notify: Restart jenkins
+  notify: Restart Jenkins
