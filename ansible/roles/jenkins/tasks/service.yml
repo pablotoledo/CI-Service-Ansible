@@ -1,7 +1,0 @@
----
-- name: Enable jenkins service.
-  service:
-    enabled: yes
-    name: jenkins
-  notify:
-    - Restart Jenkins
