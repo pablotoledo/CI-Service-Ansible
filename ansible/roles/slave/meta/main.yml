@@ -1,8 +1,7 @@
 ---
 galaxy_info:
-  author: your name
-  description: 
-  company: your company (optional)
+  author: Pablo Toledo
+  description: Slave for Jenkins
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
   # issue_tracker_url: http://example.com/issue/tracker
@@ -13,7 +12,7 @@ galaxy_info:
   # - GPLv3
   # - Apache
   # - CC-BY
-  license: license (GPLv2, CC-BY, etc)
+  license: license (MIT,BSD)
   min_ansible_version: 1.2
   #
   # Below are all platforms currently available. Just uncomment

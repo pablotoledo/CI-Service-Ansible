@@ -1,2 +1,4 @@
 ---
-# defaults file for mysql
+# defaults file for control
+user_name: admin
+user_password: ciservice
