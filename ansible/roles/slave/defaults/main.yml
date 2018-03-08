@@ -1,4 +1,6 @@
 ---
 # defaults file for control
+#admin:ciservice
+#python -c "from passlib.hash import sha512_crypt; import getpass; print sha512_crypt.encrypt(getpass.getpass())"
 user_name: admin
-user_password: ciservice
+user_password: $6$rounds=656000$utZB3.gKj0RRsFb2$KLtxw8Hj9OAqZFfEPr3KYQakEvE40.i3/UDKtPMLDSsWGaHot6LlDJXVl3wCmi3ouv/qIvxPYXeUpB.SDVdQQ1 

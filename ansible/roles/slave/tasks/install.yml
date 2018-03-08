@@ -9,3 +9,12 @@
     name: "{{ item }}"
     state: installed
   with_items: "{{ slave_build_depends }}"
+
+- name: Create standar user to manage this slave
+  user: 
+    name: "{{ user_name }}"
+    password: "{{ user_password }}"
+    createhome: yes
+    state: present
+    shell: /bin/bash
+    append: yes
