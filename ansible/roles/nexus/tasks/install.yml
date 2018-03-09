@@ -1,0 +1,11 @@
+---
+- name: Define nexus_build_depends.
+  set_fact:
+    nexus_build_depends: "{{ __nexus_build_depends | list }}"
+  when: slave_build_depends is not defined
+
+- name: Ensure nexus dependencies are installed.
+  package:
+    name: "{{ item }}"
+    state: installed
+  with_items: "{{ nexus_build_depends }}"

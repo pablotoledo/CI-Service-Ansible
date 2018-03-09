@@ -1,2 +1,12 @@
 ---
-# tasks file for nginx
+- name: Update apt cache.
+  become: yes
+  apt:
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- include: install.yml
+  become: yes

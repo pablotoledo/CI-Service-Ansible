@@ -12,8 +12,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 ---
-__slave_build_depends:
-  - build-essential
-  - maven
-  - openjdk-8-jdk
-  - git
+__nexus_build_depends:
+  - java-1.8.0-openjdk-devel
+
