@@ -1,0 +1,5 @@
+---
+- hosts: bbdd
+  become: true
+  roles:
+    - geerlingguy.mysql

@@ -69,3 +69,7 @@ Tenemos 4 script para iniciar CI-Service-Ansible según las siguientes circunsta
 
 ### Autor
     Pablo Toledo
+
+### Reconocimientos a terceros
+	Algunos roles son propiedad intelectual de otros autores:
+		[geerlingguy.mysql](https://github.com/geerlingguy/ansible-role-mysql)
