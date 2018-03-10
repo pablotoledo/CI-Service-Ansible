@@ -71,7 +71,7 @@ Vagrant.configure("2") do |config|
         h.vm.network "private_network", ip: "192.168.60.102"
         h.vm.provider :virtualbox do |vb|
             vb.customize ["modifyvm", :id, "--memory", "2048"]
-            vb.customize ["modifyvm", :id, "--cpus", "1"]
+            vb.customize ["modifyvm", :id, "--cpus", "2"]
             vb.name = "ci-service-sonarqube"
         end
         h.vm.provision "shell", inline: <<-SHELL 
@@ -103,21 +103,6 @@ Vagrant.configure("2") do |config|
             vb.customize ["modifyvm", :id, "--memory", "2048"]
             vb.customize ["modifyvm", :id, "--cpus", "2"]
             vb.name = "ci-service-slave"
-        end
-        h.vm.provision "shell", inline: <<-SHELL 
-            sudo bash -c "cat /etc/ssh/sshd_config | sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' > cat /etc/ssh/sshd_config"
-            sudo systemctl restart sshd
-        SHELL
-    end
-
-    config.vm.define "bbdd" do |h|
-        h.vm.box = "centos/7"
-        h.vm.hostname = "bbdd.ciservice.int"
-        h.vm.network "private_network", ip: "192.168.60.106"
-        h.vm.provider :virtualbox do |vb|
-            vb.customize ["modifyvm", :id, "--memory", "1024"]
-            vb.customize ["modifyvm", :id, "--cpus", "1"]
-            vb.name = "ci-service-bbdd"
         end
         h.vm.provision "shell", inline: <<-SHELL 
             sudo bash -c "cat /etc/ssh/sshd_config | sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' > cat /etc/ssh/sshd_config"

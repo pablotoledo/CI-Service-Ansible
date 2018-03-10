@@ -1,2 +1,9 @@
 ---
-# handlers file for demo_app
+- name: restart sonar
+  become: tower_user
+  become_user: "{{ sonar_process_user }}"
+  service: name=sonar state=restarted
+  notify: wait for sonar
+
+- name: wait for sonar
+  wait_for: port=9000 delay=3 timeout=300

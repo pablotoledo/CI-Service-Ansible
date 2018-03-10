@@ -1,5 +1,5 @@
 ---
-- hosts: bbdd
+- hosts: sonarqube
   become: true
   roles:
     - geerlingguy.mysql

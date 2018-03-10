@@ -1,2 +1,8 @@
 ---
-# tasks file for demo_app
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- include: install_dependencies.yml
+  become: yes
+
+- include: install_sonar.yml

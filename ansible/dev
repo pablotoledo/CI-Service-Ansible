@@ -22,8 +22,3 @@ ansible_ssh_pass=vagrant
 slave.ciservice.int
 [slave:vars]
 ansible_ssh_pass=vagrant
-
-[bbdd]
-bbdd.ciservice.int
-[bbdd:vars]
-ansible_ssh_pass=vagrant
