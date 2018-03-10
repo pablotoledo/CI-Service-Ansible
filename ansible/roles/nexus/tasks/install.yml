@@ -9,3 +9,50 @@
     name: "{{ item }}"
     state: installed
   with_items: "{{ nexus_build_depends }}"
+
+
+- name: Create default group
+  group:
+    name: "{{ nexus_process_group }}"
+    state: present
+
+- name: Create default user
+  user:
+    name: "{{ nexus_process_user }}"
+    group: "{{ nexus_process_group }}"
+    home: "{{ nexus_home }}"
+
+- name: Ensure NEXUS_HOME already exist
+  file:
+    path: "{{ nexus_home }}"
+    state: directory
+    mode: 0755
+    owner: nexus
+
+- name: Get and unzip Nexus from Sonatype
+  unarchive:
+    src: "{{ nexus_artifact }}"
+    dest: "{{ nexus_home }}"
+    remote_src: yes
+    owner: "{{ nexus_process_user }}"
+    group: "{{ nexus_process_group }}"
+
+- name: Ensure nexus_home has the correct permissions
+  file:
+    path: "{{ nexus_home }}"
+    recurse: yes
+    owner: "{{ nexus_process_user }}"
+    group: "{{ nexus_process_group }}"
+    mode: 0755
+
+- name: Renaming Nexus folder
+  command: bash -c 'mv "{{ nexus_home }}"nexus* "{{ nexus_home }}"nexus'
+
+- name: Create init file
+  template: 
+    src: "nexus.service"
+    dest: "/etc/systemd/system/nexus.service"
+    mode: 0644
+  notify: 
+    - load nexus.service
+    - start nexus.service

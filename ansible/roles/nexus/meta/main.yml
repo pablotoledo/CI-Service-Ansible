@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Pablo Toledo
-  description: Nexus for Jenkins
+  description: Nexus for Jenkins CI environment
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
   # issue_tracker_url: http://example.com/issue/tracker
