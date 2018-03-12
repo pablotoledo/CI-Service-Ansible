@@ -1,10 +1,14 @@
 ---
 - name: Create a database for Sonar.
+  become: yes
   mysql_db:
     name: "{{ sonar_mysql_database }}"
+    login_user: root
+    login_password: "{{ mysql_default_password.stdout }}"
     state: present
 
 - name: Create a sonar user.
+  become: yes
   mysql_user:
     name: "{{ sonar_mysql_username }}"
     host: "{{ item }}"

@@ -4,11 +4,50 @@
     sonar_dependencies: "{{ __sonar_dependencies | list }}"
   when: sonar_dependencies is not defined
 
+
+
 - name: Update apt cache.
   become: yes
   apt:
     update_cache: yes
   when: ansible_os_family == 'Debian'
+
+- name: install mysql repo 
+  yum:
+    name: https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: install mysqld
+  yum:
+    name: "{{ item }}"
+    state: present
+  when: ansible_os_family == 'RedHat'
+  with_items: 
+    - mysql-community-server
+    - MySQL-python
+
+- name: get mysqlpassword
+  become: yes
+  shell: grep 'temporary password' /var/log/mysqld.log |  awk '{print $NF}'
+  args:
+    executable: /bin/bash
+  register: mysql_default_password
+
+- debug: msg="{{ mysql_default_password.stdout }}"
+
+- debug: msg="{{ mysql_default_password.stderr }}"
+
+
+- name: start mysql
+  service: name=mysqld state=started enabled=yes
+  #sudo grep 'temporary password' /var/log/mysqld.log
+
+- name: Update MySQL root password for localhost root account (< 5.7.x).
+  shell: >
+    mysql -u root -p "{{ mysql_default_password.stdout }}"
+    'ALTER USER root@localhost IDENTIFIED BY "ciservice";'
+
 
 - name: Ensure sonar dependencies are installed.
   package:

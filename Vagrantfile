@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
         end
         h.vm.provision "shell", inline: <<-SHELL
             sudo yum install -y epel-release
-            sudo yum install -y ansible
+            sudo yum install -y ansible nano
         SHELL
         h.vm.provision "shell", inline: <<-SHELL 
             sudo bash -c "cat /etc/ssh/sshd_config | sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' > cat /etc/ssh/sshd_config"
