@@ -110,4 +110,19 @@ Vagrant.configure("2") do |config|
         SHELL
     end
 
+    config.vm.define "sql" do |h|
+        h.vm.box = "centos/7"
+        h.vm.hostname = "sql.ciservice.int"
+        h.vm.network "private_network", ip: "192.168.60.106"
+        h.vm.provider :virtualbox do |vb|
+            vb.customize ["modifyvm", :id, "--memory", "1024"]
+            vb.customize ["modifyvm", :id, "--cpus", "1"]
+            vb.name = "ci-service-sql"
+        end
+        h.vm.provision "shell", inline: <<-SHELL 
+            sudo bash -c "cat /etc/ssh/sshd_config | sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' > cat /etc/ssh/sshd_config"
+            sudo systemctl restart sshd
+        SHELL
+    end
+
 end

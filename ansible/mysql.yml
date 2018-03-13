@@ -1,5 +1,5 @@
 ---
-- hosts: sonarqube
+- hosts: sql
   become: true
   roles:
-    - geerlingguy.mysql
+    - sql

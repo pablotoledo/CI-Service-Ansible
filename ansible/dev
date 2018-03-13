@@ -22,3 +22,8 @@ ansible_ssh_pass=vagrant
 slave.ciservice.int
 [slave:vars]
 ansible_ssh_pass=vagrant
+
+[sql]
+sql.ciservice.int
+[sql:vars]
+ansible_ssh_pass=vagrant
