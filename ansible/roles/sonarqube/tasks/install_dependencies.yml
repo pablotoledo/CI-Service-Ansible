@@ -45,8 +45,9 @@
 
 - name: Update MySQL root password for localhost root account (< 5.7.x).
   shell: >
-    mysql -u root -p "{{ mysql_default_password.stdout }}"
-    'ALTER USER root@localhost IDENTIFIED BY "ciservice";'
+    echo pepe
+    #mysql -u root -p "{{ mysql_default_password.stdout }}"
+    #'ALTER USER root@localhost IDENTIFIED BY "ciservice";'
 
 
 - name: Ensure sonar dependencies are installed.
