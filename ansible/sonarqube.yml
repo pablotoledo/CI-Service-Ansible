@@ -2,4 +2,5 @@
 - hosts: sonarqube
   become: true
   roles:
+    - sql
     - sonarqube

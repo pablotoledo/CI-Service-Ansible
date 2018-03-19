@@ -1,6 +1,0 @@
----
-- hosts: sql
-  become: true
-  roles:
-    - sql
-    - sonarqube
