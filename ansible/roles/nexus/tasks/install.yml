@@ -10,7 +10,6 @@
     state: installed
   with_items: "{{ nexus_build_depends }}"
 
-
 - name: Create default group
   group:
     name: "{{ nexus_process_group }}"
