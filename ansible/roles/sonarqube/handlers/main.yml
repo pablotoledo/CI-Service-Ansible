@@ -1,12 +1,8 @@
 ---
 - name: restart sonar
-  become: tower_user
-  become_user: "{{ sonar_process_user }}"
+  become: yes
   service: name=sonar state=restarted
   notify: wait for sonar
 
 - name: wait for sonar
   wait_for: port=9000 delay=3 timeout=300
-
-- name: start mysql
-  service: name=mysqld state=started enabled=yes

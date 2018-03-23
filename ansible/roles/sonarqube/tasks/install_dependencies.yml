@@ -4,12 +4,6 @@
     sonar_dependencies: "{{ __sonar_dependencies | list }}"
   when: sonar_dependencies is not defined
 
-- name: Update apt cache.
-  become: yes
-  apt:
-    update_cache: yes
-  when: ansible_os_family == 'Debian'
-
 - name: Ensure sonar dependencies are installed.
   package:
     name: "{{ item }}"

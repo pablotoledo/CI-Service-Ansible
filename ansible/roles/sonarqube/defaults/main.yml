@@ -16,15 +16,10 @@ sonar_web_context: ''
 sonar_process_user: sonar
 sonar_process_group: "{{ sonar_process_user }}"
 
-# MySQL database connection details.
+# PostgreSQL database connection details.
 sonar_postgresql_username: root
 sonar_postgresql_password: ciservice
 
 sonar_postgresql_host: localhost
 sonar_postgresql_port: "5432"
 sonar_postgresql_database: sonarqube
-
-sonar_mysql_allowed_hosts:
-  - "127.0.0.1"
-  - "::1"
-  - "localhost"
