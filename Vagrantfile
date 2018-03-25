@@ -16,6 +16,48 @@ Vagrant.configure("2") do |config|
     
     config.hostmanager.enabled = true
 
+    config.vm.synced_folder ".", "/vagrant", type: "virtualbox", disabled: false,
+    rsync__exclude: ".git/"
+
+    $script_generate_ssh_key = <<SCRIPT
+    echo Updateing credentials
+    if [ ! -f /home/vagrant/.ssh/id_rsa ]; then
+          ssh-keygen -t rsa -N "" -f /home/vagrant/.ssh/id_rsa
+    fi
+         cp /home/vagrant/.ssh/id_rsa.pub /vagrant/control.pub
+
+         cat << 'SSHEOF' > /home/vagrant/.ssh/config
+     Host *
+     StrictHostKeyChecking no
+     UserKnownHostsFile=/dev/null
+SSHEOF
+        chown -R vagrant:vagrant /home/vagrant/.ssh/
+SCRIPT
+
+    $script_copy_key = 'cat /vagrant/control.pub >> /home/vagrant/.ssh/authorized_keys'
+
+    $script_install_ansible = <<SCRIPT
+        echo Installin ansible.
+        
+    #
+    # Update and install basic linux programs for development
+    #
+    sudo yum update -y
+    sudo yum install -y wget
+    sudo yum install -y curl
+    sudo yum install -y vim
+    sudo yum install -y git
+    sudo yum install -y build-essential
+    sudo yum install -y unzip
+    #
+    # Install Ansible
+    # 
+    sudo yum install -y epel-release
+    sudo yum install -y ansible nano
+
+SCRIPT
+
+
     config.vm.define "controller" do |h|
         h.vm.box = "centos/7"
         h.vm.hostname = "controller.ciservice.int"
@@ -25,14 +67,17 @@ Vagrant.configure("2") do |config|
             vb.customize ["modifyvm", :id, "--cpus", "2"]
             vb.name = "ci-service-controller"
         end
-        h.vm.provision "shell", inline: <<-SHELL
-            sudo yum install -y epel-release
-            sudo yum install -y ansible nano
-        SHELL
-        h.vm.provision "shell", inline: <<-SHELL 
-            sudo bash -c "cat /etc/ssh/sshd_config | sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' > cat /etc/ssh/sshd_config"
-            sudo systemctl restart sshd
-        SHELL
+        
+        # Configures new ssh key for server and creates a copy for the rest of the servers.
+        h.vm.provision "shell", inline: $script_generate_ssh_key 
+
+        # Install Ansible in control server  
+        h.vm.provision "shell", inline: $script_install_ansible
+
+        # Copy ansible playbook and roles. 
+        h.vm.provision "file", source: "./ansible/" , destination: "$HOME/"
+
+
     end
     
     config.vm.define "jenkins" do |h|
@@ -44,10 +89,9 @@ Vagrant.configure("2") do |config|
             vb.customize ["modifyvm", :id, "--cpus", "1"]
             vb.name = "ci-service-jenkins"
         end
-        h.vm.provision "shell", inline: <<-SHELL 
-            sudo bash -c "cat /etc/ssh/sshd_config | sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' > cat /etc/ssh/sshd_config"
-            sudo systemctl restart sshd
-        SHELL
+
+        # Copy ssh key from control server  
+        h.vm.provision 'shell', inline: $script_copy_key
     end
   
     config.vm.define "gitlab" do |h|
@@ -59,10 +103,9 @@ Vagrant.configure("2") do |config|
             vb.customize ["modifyvm", :id, "--cpus", "2"]
             vb.name = "ci-service-gitlab"
         end
-        h.vm.provision "shell", inline: <<-SHELL 
-            sudo bash -c "cat /etc/ssh/sshd_config | sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' > cat /etc/ssh/sshd_config"
-            sudo systemctl restart sshd
-        SHELL
+        
+        # Copy ssh key from master 
+        h.vm.provision 'shell', inline: $script_copy_key
     end
     
     config.vm.define "sonarqube" do |h|
@@ -74,10 +117,9 @@ Vagrant.configure("2") do |config|
             vb.customize ["modifyvm", :id, "--cpus", "2"]
             vb.name = "ci-service-sonarqube"
         end
-        h.vm.provision "shell", inline: <<-SHELL 
-            sudo bash -c "cat /etc/ssh/sshd_config | sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' > cat /etc/ssh/sshd_config"
-            sudo systemctl restart sshd
-        SHELL
+
+        # Copy ssh key from master 
+        h.vm.provision 'shell', inline: $script_copy_key
     end
     
     config.vm.define "nexus" do |h|
@@ -89,10 +131,9 @@ Vagrant.configure("2") do |config|
             vb.customize ["modifyvm", :id, "--cpus", "1"]
             vb.name = "ci-service-nexus"
         end
-        h.vm.provision "shell", inline: <<-SHELL 
-            sudo bash -c "cat /etc/ssh/sshd_config | sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' > cat /etc/ssh/sshd_config"
-            sudo systemctl restart sshd
-        SHELL
+
+        # Copy ssh key from master 
+        h.vm.provision 'shell', inline: $script_copy_key
     end
 
     config.vm.define "slave" do |h|
@@ -104,10 +145,9 @@ Vagrant.configure("2") do |config|
             vb.customize ["modifyvm", :id, "--cpus", "2"]
             vb.name = "ci-service-slave"
         end
-        h.vm.provision "shell", inline: <<-SHELL 
-            sudo bash -c "cat /etc/ssh/sshd_config | sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' > cat /etc/ssh/sshd_config"
-            sudo systemctl restart sshd
-        SHELL
+
+        # Copy ssh key from master 
+        h.vm.provision 'shell', inline: $script_copy_key
     end
 
 end

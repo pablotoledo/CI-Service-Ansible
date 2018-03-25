@@ -1,1 +1,7 @@
+### Vagrant ### 
+
 .vagrant/
+*.box  
+
+# ssh key auto generated with vagrant
+control.pub
