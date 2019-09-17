@@ -1,0 +1,11 @@
+---
+- name: Include OS-specific variables.
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Installing dependencies!
+  include: install.yml
+  become: yes
+
+- name: Install Docker CE
+  include: docker.yml
+

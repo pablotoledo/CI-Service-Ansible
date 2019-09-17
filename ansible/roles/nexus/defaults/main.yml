@@ -1,8 +1,0 @@
----
-# defaults file for control
-
-  nexus_artifact: "https://download.sonatype.com/nexus/3/latest-unix.tar.gz"
-  nexus_home: "/opt/nexus/"
-
-  nexus_process_user: nexus
-  nexus_process_group: "{{ nexus_process_user }}"

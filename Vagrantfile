@@ -36,24 +36,19 @@ SCRIPT
     $script_copy_key = 'cat /vagrant/control.pub >> /home/vagrant/.ssh/authorized_keys'
 
     $script_install_ansible = <<SCRIPT
-        echo Installin ansible.
+    sudo bash -c "sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config"
+    sudo systemctl restart sshd
         
     #
     # Update and install basic linux programs for development
     #
     sudo yum update -y
-    sudo yum install -y wget
-    sudo yum install -y curl
-    sudo yum install -y vim
-    sudo yum install -y git
-    sudo yum install -y build-essential
-    sudo yum install -y unzip
+
     #
     # Install Ansible
     # 
     sudo yum install -y epel-release
     sudo yum install -y ansible nano
-
 SCRIPT
 
 
