@@ -1,18 +1,24 @@
+Under construction!
+
 # CI-Service-Ansible
+This project is a continuation of [CI-Service](https://github.com/pablotoledo/CI-Service). And the main goal is provide a minimal DevOps environment to learn the 
 
-Este proyecto es una continuación de [CI-Service](https://github.com/pablotoledo/CI-Service) y nace como evolución para perfeccionar el alcance del anterior proyecto. También trata de ejemplificar un sistema de integración contínua básico, pero, partiendo de que el aprovisionamiento de servicios se haga con Ansible, ofreciendo cierto grado de configuración de cara a facilitar la implantación de sistemas productivos basados en este modelo.
+## Architecture
 
-## Arquitectura (visión a alto nivel)
-En CI-Service-Ansible se diseña siguiendo estos principios:
+The Ansible playbook defined will create an single environment with:
+ - Gitlab CE
+ - Jenkins
+ - Nexus 3
+ - SonarQube
+ - K8s Slave
 
- - **Aprovisionamiento de infraestructura : Vagrant**: Mediante el uso de Vagrant se definirá un cluster de máquinas virtuales, que facilitarán una infraestructura limpia sobre la cual ejecutar el aprovisionamiento de servicios con Ansible.
- - **Aprovisionamiento de servicios : Ansible**: Mediante el uso de roles se definirá el criterio de instanciación de servicios en los distintos nodos del cluster, la intercomunicación de dichos servicios y la definición de una serie de ejemplos que permitan jugar y probar el funcionamiento de la plataforma. Los servicios instanciar serán los siguientes:
-	 - GitLab CE
-	 - Jenkins LTS
-	 - Nodo slave en CentOS 7 para sentar las bases de una arquitectura de CI distribuida
-	 - Nexus 3
-	 - SonarQube
-
+## Requirements
+### Vagrant
+In case you need to instance the cluster in a local environment, there is a Vagrantfile defined to facilitate the local instalation.
+There are some vagrant plugins you will need to install before run "vagrant up":
+	- VirtualBox Oracle VM VirtualBox Extension Pack
+	- vagrant plugin install vagrant-hostmanager
+	- vagrant plugin install vagrant-vbguest
 
 ----------
 
@@ -67,7 +73,7 @@ Tenemos 4 script para iniciar CI-Service-Ansible según las siguientes circunsta
 
 ----------
 
-### Autor
+### Author
     Pablo Toledo
 
 ### Reconocimientos a terceros
