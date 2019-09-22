@@ -1,0 +1,15 @@
+---
+# defaults file for control
+
+gitlab_port: 8030
+gitlab_port_ssh: 8032
+gitlab_admin_user: "admin"
+gitlab_admin_pass: "ciservice"
+
+# Volumes
+gitlab_vm_data: "/vagrant/gitlab/data"
+gitlab_vm_logs: "/vagrant/gitlab/logs"
+gitlab_vm_config: "/vagrant/gitlab/config"
+gitlab_app_data: "/var/opt/gitlab"
+gitlab_app_logs: "/var/log/gitlab"
+gitlab_app_config: "/etc/gitlab"

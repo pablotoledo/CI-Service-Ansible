@@ -1,0 +1,17 @@
+---
+- name: Setting Up Gitlab
+  docker_container:
+    name: gitlab
+    image: gitlab/gitlab-ce:latest
+    state: started
+    hostname: "ciservice.int"
+    restart: yes
+    volumes:
+      - "{{ gitlab_vm_data }}:{{ gitlab_app_data }}"
+      - "{{ gitlab_vm_logs }}:{{ gitlab_app_logs }}"
+      - "{{ gitlab_vm_config }}:{{ gitlab_app_config }}"
+    ports:
+      - "{{ gitlab_port }}:80"
+      - "{{ gitlab_port_ssh }}:22"
+
+

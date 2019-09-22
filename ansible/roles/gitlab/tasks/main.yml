@@ -1,0 +1,4 @@
+---
+- name: Loading Gitlab CE in a Docker container
+  include: gitlab.yml
+
