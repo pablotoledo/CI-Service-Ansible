@@ -1,0 +1,15 @@
+---
+- name: Setting Up Sonarqube
+  docker_container:
+    name: sonarqube
+    image: sonarqube
+    state: started
+    restart: yes
+    volumes:
+      - "{{ gitlab_vm_data }}:{{ gitlab_app_data }}"
+      - "{{ gitlab_vm_logs }}:{{ gitlab_app_logs }}"
+      - "{{ gitlab_vm_config }}:{{ gitlab_app_config }}"
+    ports:
+      - "{{ sonarqube_port }}:9000"
+
+

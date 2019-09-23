@@ -1,25 +1,17 @@
 ---
-workspace: /root
-sonar_download_validate_certs: yes
+# defaults file for control
 
-sonar_home: /usr/local/sonar/
+sonarqube_port: 8030
+gitlab_port_ssh: 8032
+gitlab_admin_user: "admin"
+gitlab_admin_pass: "ciservice"
 
-# Default to the latest LTS release.
-sonar_version: 6.7
-sonar_download_url: "https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-{{ sonar_version }}.zip"
-sonar_version_directory: "sonarqube-{{ sonar_version }}"
-
-sonar_web_context: ''
-
-
-# Process user
-sonar_process_user: sonar
-sonar_process_group: "{{ sonar_process_user }}"
-
-# PostgreSQL database connection details.
-sonar_postgresql_username: root
-sonar_postgresql_password: ciservice
-
-sonar_postgresql_host: localhost
-sonar_postgresql_port: "5432"
-sonar_postgresql_database: sonarqube
+# Volumes
+sonarqube_vm_data: "/vagrant/sonarqube/data"
+sonarqube_vm_logs: "/vagrant/sonarqube/logs"
+sonarqube_vm_config: "/vagrant/sonarqube/config"
+sonarqube_vm_extension: "/vagrant/sonarqube/extensions"
+sonarqube_app_data: "/opt/sonarqube/data"
+sonarqube_app_logs: "/opt/sonarqube/logs"
+sonarqube_app_config: "/opt/sonarqube/conf"
+sonarqube_app_extension: "/opt/sonarqube/extensions"
