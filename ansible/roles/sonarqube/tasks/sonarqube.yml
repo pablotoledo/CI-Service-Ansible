@@ -6,9 +6,9 @@
     state: started
     restart: yes
     volumes:
-      - "{{ gitlab_vm_data }}:{{ gitlab_app_data }}"
-      - "{{ gitlab_vm_logs }}:{{ gitlab_app_logs }}"
-      - "{{ gitlab_vm_config }}:{{ gitlab_app_config }}"
+      - "{{ sonarqube_vm_data }}:{{ sonarqube_app_data }}"
+      - "{{ sonarqube_vm_logs }}:{{ sonarqube_app_logs }}"
+      - "{{ sonarqube_vm_config }}:{{ sonarqube_app_config }}"
     ports:
       - "{{ sonarqube_port }}:9000"
 

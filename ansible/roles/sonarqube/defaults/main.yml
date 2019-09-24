@@ -2,9 +2,6 @@
 # defaults file for control
 
 sonarqube_port: 8030
-gitlab_port_ssh: 8032
-gitlab_admin_user: "admin"
-gitlab_admin_pass: "ciservice"
 
 # Volumes
 sonarqube_vm_data: "/vagrant/sonarqube/data"
